@@ -27,3 +27,18 @@ Neste diário vou documentar problemas, soluções, descobertas etc. ao longo do
 - **PROBLEMA:** Clico pra habilitar o bico no controle manual do Repetier e ele imediatamente desabilita. Temperatura máxima do bico estava configurada em 0 graus. Alterei, fucei alterando pela impressora e depois pelo software e deu certo.
 - Tive que ajustar velocidade do eixo Z e velocidade de extrusão manual - Printer Settings > Printer > Z-Axis Feed Rate (100 -> 200)/Manual Extrustion Speed (1000 -> 100)
 - GCode p/ permitir cold extrusion (útil p/ fazer cold pull): `M302 P` [[docs](https://marlinfw.org/docs/gcode/M302.html)]
+
+## 09/06/2025
+
+- **PROBLEMA:** A impressora não estava lendo a temperatura do bico. Descobri que o conector havia saído e está bem gambiarrado. Preciso arrumar isso em algum momento.
+- [GCode p/ permitir Z negativo](https://www.reddit.com/r/CR10/comments/mpyqvi/marlin_move_z_axis_only_lets_me_move_in_the/) (desabilitar soft end stops): `M211 S0`
+- Tentei imprimir o primeiro cubo de calibração. Parâmetros:
+  - Velocidade mais lenta
+  - 210/50º
+  - Fatiado com CuraEngine
+  - Desabilitei o home no Gcode e fiz o home manualmente, pois o fim de curso do Z soltou
+- Parece que tem filamento vazando entre a guia e o bico, e está pingando por fora do bico. parei a impressão antes do fim.
+- Temperatura muito alta?
+- Espaço entre a guia e o bico?
+- [tópico de forum](https://forum.prusa3d.com/forum/original-prusa-i3-mk3s-mk3-hardware-firmware-and-software-help/filament-leaking-over-eater-block-but-i-cant-screw-the-nozzle-in-more/) - na próxima vez que for mexer vou abrir, limpar e remontar da forma correta
+- **IMPORTANTE:** O aperto do bico tem que ser feito com a extrusora _quente_.
