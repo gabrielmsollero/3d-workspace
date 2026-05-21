@@ -132,6 +132,27 @@ Neste diário vou documentar problemas, soluções, descobertas etc. ao longo do
 - Enquanto fazia, **achei [essa página](https://lordasgart.github.io/prusaslicer-geeetech-i3-settings.html) de um cara c/ os parâmetros ideais segundo ele p uma impressora bem parecida**. Vou usar de referência quando precisar parametrizar algo. O teste de stringing com os parâmetros dele foi perfeito. Vamos ver a peça real
 - Durante o teste de stringing presenciei o tal do "cool head lift", e não presta. Rolou oozing e estragou as camadas subsequentes além de perder tempo.
 
+## 21/05/2026
+
+- Hoje é dia de fazer acontecer o auto bed levelling. Encontrei [esse vídeo](https://www.youtube.com/watch?v=eF060dBEnfs) genérico que explica o processo p qualquer impressora
+- Quando instalei o BLTouch no suporte, notei que mesmo com a probe levantada ele estava mais baixo que o bico. A solução foi abrir 2 furos abaixo dos originais pra que o conjunto todo ficasse mais alto. Tentei fazer isso c/ Dremel e furadeira mas ficou horrível, e a furadeira (que era pra fazer o rebaixo da cabeça do parafuso) varou a peça toda. Além disso, a distância entre os furos ficou curta demais e tive que alargar. Conclusão: **usinar impressão 3d não rola.**
+- Mesmo com a peça fudida, consegui prender e vamos ver até onde vai.
+- Enquanto organizava os cabos tive a ideia de tentar usar as saídas de cooler da propria placa pra eliminar essa fonte auxiliar q é um saco
+- Depois de fazer todo o processo, fui tentar nivelar mas mesmo com a probe subindo o eixo z não parava de descer. Troquei os fios preto e branco pelo botão NF e, quando apertava o botão, dava certo. Conferi a fiação e estava se comportando como esperado (probe abaixada = fechado, probe levantada = aberto). Além disso, fiz um teste desconectando a probe e nesse caso (supondo um problema de cabeamento) o Z nem desceu. No fim, descobri que **os fios do Z endstop têm polaridade nesse caso** e estavam invertidos.
+- Quando finalmente consegui fazer com que o eixo Z parasse de descer, descobri que agora o BLTouch estava alto demais. O Z-offset não era suficiente para fazer ele retrair a probe, e o bico estava encostando na bed. _Acho_ que isso é parametrizável (`Z_PROBE_LOW_POINT` no `Configuration.h`), mas achei mais fácil calçar o bltouch com duas porquinhas M3 e deu bom
+- Pra configurar o Z offset entre probe e bico coloquei ele inicialmente como -5 (pois sabia que era suficiente). Uma vez nivelado, usei o método do papel pra ver quanto faltava pro bico chegar na posição certa e atualizei isso direto no firmware. Apanhei um pouco pra atualizar isso na impressora depois de subir o firmware novo, mas quando dei um `Initialize EEPROM` foi.
+- Rodei um teste de nivelamento e ficou TOPÍSSIMO 🎉
+  - **IMPORTANTE:** Caso precise rodar esse teste de novo, preciso lembrar de limpar o laquê **antes**. É um saco limpar a bed depois dessa impressão e isso dificulta ainda mais
+  - Outra merda que deu quando rodei esse teste: a probe agora pega nos grampos que seguram o vidro na bed, quando Y está próximo de zero. Pra resolver isso:
+    1. `Y_MIN_POS`: 0 -> -45; `Y_BED_SIZE`: 200 -> 135 -- já corrigiu a pancada que dava quando chegava em y = 200 também
+    2. (já corrigindo a pancada em x = 200) `X_BED_SIZE`: 200 -> 190
+  - Precisei atualizar no printer settings do repetier host tbm. Aparentemente esses parâmetros não são compartilhados. Rodei uns testes aqui e parece que agora resolveu
+- Já notei uma folga no suporte, talvez de ficar tirando e pondo o cooler (que preciso fazer toda vez que coloco ou tiro o filamento). Acho que não vai longe. A alternativa é adaptar o desenho reposicionando a furação de fixação
+
+<!-- TODO: checar se saidas dos coolers funcionam e se possível tirar a fonte auxiliar -->
+<!-- TODO: ajeitar cabo q ta pegando no endstop x -->
+<!-- mount só sensor: http://www.geeetech.com/wiki/images/0/00/3DTouch_mount_for_Geeetech_prusa_I3_pro_B.zip -->
+
 <!-- https://www.thingiverse.com/thing:1974194#google_vignette - cooler 1 sem bl touch -->
 <!-- https://www.thingiverse.com/thing:2239330 -->
 <!-- https://www.thingiverse.com/thing:3325307 (fan) +  -->
