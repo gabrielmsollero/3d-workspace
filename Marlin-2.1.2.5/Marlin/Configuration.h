@@ -1207,7 +1207,7 @@
 #if ENABLED(PRO_B_WITH_LEADSCREW)       // M8 leadscrew version
   #define DEFAULT_AXIS_STEPS_PER_UNIT   { 78.74, 78.74, 400, 105 }
 #else                                   // M8 threaded rod version
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 78.74, 78.74, 2560, 105 }
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.02, 80.02, 2512.27, 95.5 }
 #endif
 
 /**
@@ -1740,8 +1740,8 @@
 #define Y_BED_SIZE 200
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
-#define X_MIN_POS -12
-#define Y_MIN_POS -8
+#define X_MIN_POS -14
+#define Y_MIN_POS 0
 #define Z_MIN_POS 0
 #define X_MAX_POS (-X_MIN_POS+X_BED_SIZE)
 #define Y_MAX_POS (-Y_MIN_POS+Y_BED_SIZE)
@@ -2177,13 +2177,13 @@
  *    +-------------->X     +-------------->X     +-------------->Y
  *     XY_SKEW_FACTOR        XZ_SKEW_FACTOR        YZ_SKEW_FACTOR
  */
-// #define SKEW_CORRECTION
+#define SKEW_CORRECTION
 
 #if ENABLED(SKEW_CORRECTION)
   // Input all length measurements here:
-  #define XY_DIAG_AC 282.8427124746
-  #define XY_DIAG_BD 281.8196945719
-  #define XY_SIDE_AD 200
+  #define XY_DIAG_AC 141.51
+  #define XY_DIAG_BD 140.12
+  #define XY_SIDE_AD 99.85
 
   // Or, set the default skew factors directly here
   // to override the above measurements:
